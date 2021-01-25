@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd"
+	xmlns:tx="http://www.springframework.org/schema/tx">
+
+<!-- A -->
+	<bean id="myds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"/>
+		<property name="username" value="system"/>
+		<property name="password" value="sjreddy"/>
+	</bean>
+	<!-- B -->
+	<bean id="myEntityManager" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="myds"/>  <!-- setDataSource() -->
+	</bean>
+	<!-- C -->
+	<bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="myEntityManager"></property>
+	</bean>
+
+	<!-- D -->
+	<bean id="myDeptRepository" class="com.lti.jpa.MyDeptRepositoryImpl">
+              
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="txManager"/>
+</beans>
+
+
+
+<!-- DriverManagerDataSource dmds = new DriverManagerDataSource();
+	dmds.setDriver();
+	dmds.setUrl();
+	
+	LocalSessionFactoryBean lsfb = new LocalSessionFactoryBean();
+	lsfb.setDataSource(dmds);
+	 -->	
+
+	 
+	 <!-- 	Properties p = new Properties();
+		p.put("hibernate.dialect","org.hibernate.dialect.Oracle10gDialect");
+		..
+		.. -->

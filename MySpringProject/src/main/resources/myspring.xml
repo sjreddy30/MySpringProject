@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="mycar1" class="com.lti.car.Car" scope="prototype">
+    <property name="car" ref="myengine"/>
+    <property name="model" value="Tesla"/>
+    </bean>
+
+    <bean id="mycar" class="com.lti.car.Car" scope="prototype">
+        <constructor-arg ref="myengine" type="com.lti.car.Engine"> </constructor-arg>
+    </bean>
+    
+    <bean id="myengine" class="com.lti.car.Engine" scope="prototype">
+        <constructor-arg ref="mypiston" type="com.lti.car.Piston"> </constructor-arg>
+    </bean>
+    
+    <bean id="mypiston" class="com.lti.car.Piston" scope="prototype" >
+         <constructor-arg index="0" type="int" value="10" ></constructor-arg>  
+    </bean>
+</beans>
